@@ -8,6 +8,11 @@ class Router {
     }
 
     public function route($requestUri, $method) {
+        if($requestUri == ''){
+            http_response_code(200);
+            echo "Ciao mondo";
+            exit;
+        }
         foreach ($this->routes as $routePattern => $actions) {
             if (preg_match('#^' . $routePattern . '$#', $requestUri, $matches)) {
                 if (isset($actions[$method])) {
