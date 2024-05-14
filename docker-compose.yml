@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  web:
+    image: nginx:stable
+    volumes:
+      - ./:/var/www/html/app/
+      - ./conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+      - redis
+      - mysql
+  php:
+    image: php_1
+  redis:
+    image: redis:latest
+  mysql:
+    image: mysql:latest
+    ports:
+      - "9906:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_DATABASE: test
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
