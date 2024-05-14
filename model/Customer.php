@@ -56,7 +56,8 @@ class Customer extends DB
 
         $sql = "INSERT INTO `" . self::getTableName() . "` (`nome`, `cognome`, `gender`) VALUES ('$nome', '$cognome', '$gender')";
         try {
-            return $mysqli->query($sql);
+            $mysqli->query($sql);
+            return 'Cliente creato con successo';
         } catch (\Exception $e) {
             http_response_code(400);
             return $e->getMessage();
